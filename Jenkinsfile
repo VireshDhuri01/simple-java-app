@@ -1,15 +1,17 @@
 pipeline{
-    tools {
-        maven  'mvn'
+    tools{
+        maven 'mvn'
     }
-    agent {
-        label 'node1'
-    } 
+    agent any
     stages{
-        stage('cloning the code'){
+        stage('Basic'){
             steps{
-                echo "cloning the code "
-                git branch: 'test', url: 'https://github.com/mantu0tech/simple-java-app.git'
+                echo "This is the start of pipeline"
+            }
+        }
+        stage('Git clone'){
+            steps{
+                git branch: 'main', url: 'https://github.com/VireshDhuri01/simple-java-app.git'
             }
         }
         stage('test the code'){
@@ -21,7 +23,7 @@ pipeline{
         stage('archive jar') {
             steps {
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-    }
-}
+            }
+        }    
     }
 }
